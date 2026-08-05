@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Set up two-factor authentication</h2>
+<p>Scan this QR code with an authenticator app (Google Authenticator, Authy, etc.):</p>
+<img src="data:image/png;base64,{{ qr_b64 }}" alt="QR code" style="width:220px;height:220px;">
+<p>Can't scan? Enter this key manually: <code>{{ secret }}</code></p>
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Enter the 6-digit code from your app to confirm setup</label>
+  <input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autofocus>
+  <button type="submit">Confirm</button>
+</form>
+{% endblock %}

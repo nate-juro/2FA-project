@@ -1,0 +1,19 @@
+<!doctype html>
+{% extends "base.html" %}
+{% block content %}
+<h2>Register</h2>
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Username</label>
+  <input name="username" required>
+  <label>Email</label>
+  <input name="email" type="email" required>
+  <label>Password (12+ characters)</label>
+  <input name="password" type="password" required>
+  <label>Confirm password</label>
+  <input name="confirm" type="password" required>
+  <button type="submit">Create account</button>
+</form>
+<p><a href="{{ url_for('login') }}">Already have an account? Log in</a></p>
+{% endblock %}
+</html>
