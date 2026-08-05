@@ -1,0 +1,54 @@
+Files
+app.py             
+schema.sql           
+schema.db (will populate once a login is saved)           
+requirements.txt
+templates/
+    base.html
+    register.html
+    login.html
+    setup_2fa.html
+    verify_2fa.html
+    dashboard.html
+
+--------------------------------------------------------------------
+
+Features
+-User registration with server-side validation
+-Passwords hashed with argon2
+-TOTP 2FA (Compatible with Google Authenticator)
+-Account lockout after repeated failed login attempts
+-CSRF protection on every forum
+-Session cookies configured
+-Append only audit log of login activity
+
+--------------------------------------------------------------------
+
+Setup
+-pip install -r requirements.txt
+-python app.py
+
+--------------------------------------------------------------------
+
+Function
+-Register (/register) creates an account with hashed password
+-Setup 2FA (/setup-2fa) scan QR code or manually input into authenticater app
+-Log in (/login) enter username and password
+-Verify 2FA (/login/verify) enter current verification code from authenticator app
+-Dashboard (/dashboard) reached only after login and 2fa verified
+
+--------------------------------------------------------------------
+
+Purpose (Threat prevention)
+-Database breach: passwords only stored as argon2 hashes, so stolen database doesn't hand over usable credentials.
+-Brute-force: accounts lock for 15 minutes after 5 failed login attemps.
+-Username enumeration: login errors are identical whether the username doesn't exist or the password is wrong.
+-Stolen or guessed passwords: 2fa is required for every login attempt before account is usable.
+-CSRF: every form requires a valid CSRF token.
+-Cookies: cookies are HTTP only, so client-side javascript can't read them.
+
+--------------------------------------------------------------------
+
+Future Plans
+-real HTTPS: run behidn a reverse proxy with a TLS certificate
+-IP rate limiting: current lockout is per account only; one person could still hammer many different accounts from one IP

@@ -142,7 +142,7 @@ def setup_2fa():
         else:
             secret = user["totp_secret"]
 
-        url = pyotp.totp.TOTP(secret).provisioning_uri(name=username, issuer_name="SecureLoginDemo")
+        url = pyotp.totp.TOTP(secret).provisioning_uri(name=username, issuer_name="")
         qr_img = qrcode.make(url)
         buf = io.BytesIO()
         qr_img.save(buf, format="PNG")
